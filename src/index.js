@@ -71,7 +71,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /************  TIMER  ************/
 
-  let timer;
+  // let timer;
+
+  // const timeElm = document.getElementById("timeRemaining");
+
+  function startTimer() {
+    intervalId = setInterval(() => {
+      quiz.timeRemaining--;
+      if (quiz.timeRemaining >= 0) {
+        console.log("!!!! " + quiz.timeRemaining);
+        const minutes = Math.floor(quiz.timeRemaining / 60)
+          .toString()
+          .padStart(2, "0");
+        const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+
+        // Display the time remaining in the time remaining container
+        const timeRemainingContainer = document.getElementById("timeRemaining");
+        timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+      } else {
+        const btnNxt = document.getElementById("nextButton");
+        btnNxt.id = "restartButton";
+        btnNxt.className = "button-secondary";
+        btnNxt.innerText = "Restart Quiz";
+        restartButton();
+        clearInterval(intervalId);
+      }
+    }, 1000);
+  }
 
   /************  EVENT LISTENERS  ************/
 
@@ -84,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // showResults() - Displays the end view and the quiz results
 
   function showQuestion() {
+    startTimer();
     // If the quiz has ended, show the results
     if (quiz.hasEnded()) {
       showResults();
@@ -197,9 +224,11 @@ document.addEventListener("DOMContentLoaded", () => {
       quiz.currentQuestionIndex + 1
     } correct answers!`;
   }
-
-  const restartButton = document.querySelector("#restartButton");
-  restartButton.addEventListener("click", () => {
-    location.reload();
-  });
+  function restartButton() {
+    const restartButton = document.querySelector("#restartButton");
+    restartButton.addEventListener("click", () => {
+      location.reload();
+    });
+  }
+  restartButton();
 });
