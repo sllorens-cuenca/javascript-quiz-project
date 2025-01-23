@@ -138,15 +138,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hint 4: You can use the `element.innerText` property to set the inner text of an element.
 
     question.choices.forEach(function (element) {
-
       const input = document.createElement("input");
       const label = document.createElement("label");
       input.type = "radio";
       input.name = "choice";
       input.value = element;
-      label.innerText = element
-      choiceContainer.appendChild(input)
-      choiceContainer.appendChild(label)
+      label.innerText = element;
+      choiceContainer.appendChild(input);
+      choiceContainer.appendChild(label);
       choiceContainer.appendChild(document.createElement("br"));
     });
   }
@@ -158,18 +157,18 @@ document.addEventListener("DOMContentLoaded", () => {
     //
     // 1. Get all the choice elements. You can use the `document.querySelectorAll()` method.
 
-    const choiceElements = document.querySelectorAll(`input[name = "choice"]`)
+    const choiceElements = document.querySelectorAll(`input[name = "choice"]`);
 
     // 2. Loop through all the choice elements and check which one is selected
     // Hint: Radio input elements have a property `.checked` (e.g., `element.checked`).
     //  When a radio input gets selected the `.checked` property will be set to true.
     //  You can use check which choice was selected by checking if the `.checked` property is true.
 
-    choiceElements.forEach (function (element) {
+    choiceElements.forEach(function (element) {
       if (element.checked) {
         selectedAnswer = element.value;
       }
-    })
+    });
 
     // 3. If an answer is selected (`selectedAnswer`), check if it is correct and move to the next question
     // Check if selected answer is correct by calling the quiz method `checkAnswer()` with the selected answer.
@@ -181,7 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
       quiz.moveToNextQuestion();
       showQuestion();
     }
-
   }
 
   function showResults() {
@@ -195,7 +193,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
     //resultContainer.innerText = `You scored 1 out of 1 correct answers!`; // This value is hardcoded as a placeholder
-    resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.currentQuestionIndex + 1} correct answers!`;
+    resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${
+      quiz.currentQuestionIndex + 1
+    } correct answers!`;
   }
 
   const restartButton = document.querySelector("#restartButton");
